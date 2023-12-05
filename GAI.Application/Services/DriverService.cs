@@ -1,13 +1,8 @@
-﻿using GAI.Api.ViewModels;
-using GAI.Application.Interfaces;
+﻿using GAI.Application.Interfaces;
 using GAI.Domain.Entities;
+using GAI.Domain.ViewModels;
 using GAI.Infastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GAI.Application.Services
 {

@@ -33,6 +33,10 @@ namespace GAI.Infastructure.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<string>("CarColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("CarDocuments")
                         .HasColumnType("bit");
 
@@ -64,7 +68,7 @@ namespace GAI.Infastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("violation")
+                    b.Property<bool>("Violation")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GAI.Infastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Started : Migration
+    public partial class Start : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,9 +21,10 @@ namespace GAI.Infastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Stage = table.Column<int>(type: "int", nullable: false),
-                    violation = table.Column<bool>(type: "bit", nullable: false),
+                    Violation = table.Column<bool>(type: "bit", nullable: false),
                     CarModel = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CarNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CarColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CarDocuments = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),

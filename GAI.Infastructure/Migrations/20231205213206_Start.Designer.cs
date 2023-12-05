@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GAI.Infastructure.Migrations
 {
     [DbContext(typeof(GAIDbContext))]
-    [Migration("20231205195740_Started")]
-    partial class Started
+    [Migration("20231205213206_Start")]
+    partial class Start
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,10 @@ namespace GAI.Infastructure.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.Property<string>("CarColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("CarDocuments")
                         .HasColumnType("bit");
@@ -67,7 +71,7 @@ namespace GAI.Infastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("violation")
+                    b.Property<bool>("Violation")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

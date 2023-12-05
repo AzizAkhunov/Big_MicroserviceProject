@@ -1,4 +1,4 @@
-﻿namespace GAI.Api.ViewModels
+﻿namespace GAI.Domain.ViewModels
 {
     public class DriverDTO
     {
