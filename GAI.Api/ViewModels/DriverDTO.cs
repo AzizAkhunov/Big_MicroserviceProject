@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GAI.Domain.Entities
+﻿namespace GAI.Api.ViewModels
 {
-    [Table("Drivers")]
-    public class Driver : BaseClassForModels
+    public class DriverDTO
     {
         public string FistName { get; set; }
         public string LastName { get; set; }
@@ -19,6 +11,5 @@ namespace GAI.Domain.Entities
         public string CarNumber { get; set; }
         public string CarColor { get; set; }
         public bool CarDocuments { get; set; }
-        public ICollection<Punishment>? Punishments { get; } = new List<Punishment>();
     }
 }
