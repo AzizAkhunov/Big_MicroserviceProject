@@ -7,17 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10ECB5DF-809
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API_GateAway", "API_GateAway", "{5D2B0FF7-2A85-43D6-BBF5-9DDE86539251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateAway.Api", "GateAway.Api\GateAway.Api.csproj", "{145F8F1B-7401-419A-9FB2-C879260BB699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateAway.Api", "GateAway.Api\GateAway.Api.csproj", "{145F8F1B-7401-419A-9FB2-C879260BB699}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API_GAI", "API_GAI", "{74337DA5-A4FA-44CB-8AA4-C7B5FA086701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAI.Api", "GAI.Api\GAI.Api.csproj", "{0DE926BA-DE83-4EF1-BBE8-B5F4DC0F5268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GAI.Api", "GAI.Api\GAI.Api.csproj", "{0DE926BA-DE83-4EF1-BBE8-B5F4DC0F5268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAI.Domain", "GAI.Domain\GAI.Domain.csproj", "{646A8BC7-7B96-44DB-8F99-715CBB4928AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GAI.Domain", "GAI.Domain\GAI.Domain.csproj", "{646A8BC7-7B96-44DB-8F99-715CBB4928AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAI.Application", "GAI.Application\GAI.Application.csproj", "{D2B731DC-39E1-477F-8ADF-BD500870E6B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GAI.Application", "GAI.Application\GAI.Application.csproj", "{D2B731DC-39E1-477F-8ADF-BD500870E6B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAI.Infastructure", "GAI.Infastructure\GAI.Infastructure.csproj", "{63FB1B22-633D-42F8-A73B-DA005D0393B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GAI.Infastructure", "GAI.Infastructure\GAI.Infastructure.csproj", "{63FB1B22-633D-42F8-A73B-DA005D0393B9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6EAAED59-AD81-4F39-8E26-BFFE859211F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{63FB1B22-633D-42F8-A73B-DA005D0393B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63FB1B22-633D-42F8-A73B-DA005D0393B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63FB1B22-633D-42F8-A73B-DA005D0393B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EAAED59-AD81-4F39-8E26-BFFE859211F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EAAED59-AD81-4F39-8E26-BFFE859211F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EAAED59-AD81-4F39-8E26-BFFE859211F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EAAED59-AD81-4F39-8E26-BFFE859211F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

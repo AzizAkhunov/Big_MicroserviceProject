@@ -1,0 +1,26 @@
+version: '3.4'
+
+networks:
+  backend:
+
+services:
+  gai.api:
+    container_name: gai-dbcontainer
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=pa@2or$%%dd
+    networks:
+        - backend
+    ports:
+        - 7170:1433 
+
+  gateaway.api:
+    image: ${DOCKER_REGISTRY-}gateawayapi
+    build:
+      context: .
+      dockerfile: GateAway.Api/Dockerfile
+    ports:
+        - 7180:80
+    networks:
+        - backend
