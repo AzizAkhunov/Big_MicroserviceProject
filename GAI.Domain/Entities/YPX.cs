@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GAI.Domain.Entities
 {
+    [Table("GAies")]
     public class YPX : BaseClassForModels
     {
         public string FirstName { get; set; }
@@ -15,5 +16,6 @@ namespace GAI.Domain.Entities
         public string Passport { get; set; }
         public string Description { get; set; }
         public bool YPXDocument { get; set; }
+        public ICollection<Punishment>? Punishments { get; set; }
     }
 }

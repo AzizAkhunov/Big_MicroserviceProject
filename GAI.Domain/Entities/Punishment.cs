@@ -2,6 +2,7 @@
 
 namespace GAI.Domain.Entities
 {
+    [Table("Punishments")]
     public class Punishment : BaseClassForModels
     {
         public int YPX_Id { get; set; }
