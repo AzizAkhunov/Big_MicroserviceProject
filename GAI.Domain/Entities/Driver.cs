@@ -10,7 +10,6 @@ namespace GAI.Domain.Entities
     [Table("Drivers")]
     public class Driver : BaseClassForModels
     {
-        public int Id { get; set; }
         public string FistName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -19,7 +18,6 @@ namespace GAI.Domain.Entities
         public string CarModel { get; set; }
         public string CarNumber { get; set; }
         public bool CarDocuments { get; set; }
-
-        public ICollection<Punishment>? Punishments { get; set; }
+        public ICollection<Punishment> Punishments { get; set; }
     }
 }

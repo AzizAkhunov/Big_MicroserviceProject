@@ -16,6 +16,6 @@ namespace GAI.Domain.Entities
         public string Passport { get; set; }
         public string Description { get; set; }
         public bool YPXDocument { get; set; }
-        public ICollection<Punishment>? Punishments { get; set; }
+        public ICollection<Punishment> Punishments { get; set; }
     }
 }
