@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GAI.Infastructure.Migrations
 {
     [DbContext(typeof(GAIDbContext))]
-    [Migration("20231205213206_Start")]
+    [Migration("20231205234544_Start")]
     partial class Start
     {
         /// <inheritdoc />
@@ -57,7 +57,7 @@ namespace GAI.Infastructure.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FistName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -148,8 +148,16 @@ namespace GAI.Infastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("YPXDocument")
                         .HasColumnType("bit");

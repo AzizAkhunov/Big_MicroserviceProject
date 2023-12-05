@@ -13,7 +13,6 @@ namespace GAI.Infastructure.DbContexts
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<YPX> GAies { get; set; }
         public DbSet<Punishment> Punishments { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Driver>()

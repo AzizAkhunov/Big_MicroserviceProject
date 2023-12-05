@@ -21,7 +21,7 @@ namespace GAI.Application.Services
             {
                 var driver = new Driver()
                 {
-                    FistName = driverDTO.FistName,
+                    FirstName = driverDTO.FirstName,
                     LastName = driverDTO.LastName,
                     Age = driverDTO.Age,
                     Stage = driverDTO.Stage,
@@ -80,7 +80,7 @@ namespace GAI.Application.Services
                 var driver = await _dbContext.Drivers.FirstOrDefaultAsync(x => x.Id == id);
                 if (driver is not null)
                 {
-                    driver.FistName = driverDTO.FistName;
+                    driver.FirstName = driverDTO.FirstName;
                     driver.LastName = driverDTO.LastName;
                     driver.Age = driverDTO.Age;
                     driver.Stage = driverDTO.Stage;
@@ -100,6 +100,15 @@ namespace GAI.Application.Services
             {
                 return false;
             }
+        }
+        public Driver GetDriverPunishments(int driverId)
+        {
+            Driver driver = _dbContext.Drivers.FirstOrDefault(x => x.Id == driverId);
+            driver = _dbContext.Drivers
+                .Include(x => x.Punishments)
+                .FirstOrDefault();
+
+            return driver;
         }
     }
 }

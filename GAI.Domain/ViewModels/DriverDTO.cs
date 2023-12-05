@@ -2,7 +2,7 @@
 {
     public class DriverDTO
     {
-        public string FistName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
         public int Stage { get; set; }
