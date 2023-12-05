@@ -25,7 +25,7 @@ namespace GAI.Infastructure.DbContexts
             modelBuilder.Entity<YPX>()
                 .HasMany(x => x.Punishments)
                 .WithOne(x => x.YPX)
-                .HasForeignKey(e => e.YPX_Id)
+                .HasForeignKey(e => e.YPXId)
                 .IsRequired();
         }
     }

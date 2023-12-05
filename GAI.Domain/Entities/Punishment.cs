@@ -5,15 +5,14 @@ namespace GAI.Domain.Entities
     [Table("Punishments")]
     public class Punishment : BaseClassForModels
     {
-        public int YPX_Id { get; set; }
+        public int YPXId { get; set; }
+        public YPX YPX { get; set; }
+
         public int DriverId { get; set; }
+        public Driver Driver { get; set; }
+
         public decimal Price { get; set; }
         public string Description { get; set; }
         
-        [ForeignKey("YPX_Id")]
-        public YPX YPX { get; set; }
-        
-        [ForeignKey("DriverId")]
-        public Driver Driver { get; set; }
     }
 }

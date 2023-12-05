@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GAI.Infastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Start : Migration
+    public partial class Started : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,7 @@ namespace GAI.Infastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    YPX_Id = table.Column<int>(type: "int", nullable: false),
+                    YPXId = table.Column<int>(type: "int", nullable: false),
                     DriverId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -78,8 +78,8 @@ namespace GAI.Infastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Punishments_GAies_YPX_Id",
-                        column: x => x.YPX_Id,
+                        name: "FK_Punishments_GAies_YPXId",
+                        column: x => x.YPXId,
                         principalTable: "GAies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -91,9 +91,9 @@ namespace GAI.Infastructure.Migrations
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Punishments_YPX_Id",
+                name: "IX_Punishments_YPXId",
                 table: "Punishments",
-                column: "YPX_Id");
+                column: "YPXId");
         }
 
         /// <inheritdoc />

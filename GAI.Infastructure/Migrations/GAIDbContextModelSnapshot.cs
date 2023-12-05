@@ -99,14 +99,14 @@ namespace GAI.Infastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("YPX_Id")
+                    b.Property<int>("YPXId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
 
-                    b.HasIndex("YPX_Id");
+                    b.HasIndex("YPXId");
 
                     b.ToTable("Punishments");
                 });
@@ -162,7 +162,7 @@ namespace GAI.Infastructure.Migrations
 
                     b.HasOne("GAI.Domain.Entities.YPX", "YPX")
                         .WithMany("Punishments")
-                        .HasForeignKey("YPX_Id")
+                        .HasForeignKey("YPXId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
