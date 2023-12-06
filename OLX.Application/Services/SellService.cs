@@ -1,34 +1,96 @@
-﻿using OLX.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OLX.Application.Interfaces;
 using OLX.Domain.DTOs;
 using OLX.Domain.Entities;
+using OLX.Infastructure.DbContexts;
 
 namespace OLX.Application.Services
 {
     public class SellService : ISellService
     {
-        public ValueTask<bool> CreateUserAsync(SellsDTO sellDTO)
+        private readonly OLXDbContext _context;
+
+        public SellService(OLXDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async ValueTask<bool> CreateSellAsync(SellsDTO sellDTO)
+        {
+            try // Logika nmada ? Bunda Biz sellga product quyganda u product databasedan uchadi u sellda turadi va ushatta buy qilish mumkin buladi
+            {
+                var sell = new Sell()
+                {
+                    ProductId = sellDTO.ProductId,
+                    GeneralPrice = sellDTO.GeneralPrice,
+                    Status = true
+                };
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == sell.ProductId);
+                if (product != null)
+                {
+                    product.Status = false;
+                    _context.Products.Update(product);
+                }
+                await _context.Sells.AddAsync(sell);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public ValueTask<bool> DeleteUserAsync(int id)
+        public async ValueTask<bool> DeleteSellAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _context.Sells.FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Sells.Remove(result);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public ValueTask<ICollection<Sell>> GetAllSellAsync()
+        public async ValueTask<ICollection<Sell>> GetAllSellAsync()
         {
-            throw new NotImplementedException();
+            var result = await _context.Sells.ToListAsync();
+            return result;
         }
 
-        public ValueTask<Sell> GetSellById(int id)
+        public async ValueTask<Sell> GetSellById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Sells.FirstOrDefaultAsync(x => x.Id == id);
+            if (result is not null)
+            {
+                return result;
+            }
+            return new Sell();
         }
 
-        public ValueTask<bool> UpdateUserAsync(int id, SellsDTO sellDTO)
+        public async ValueTask<bool> UpdateSellAsync(int id, SellsDTO sellDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _context.Sells.FirstOrDefaultAsync(x => x.Id == id);
+                if (result is not null)
+                {
+                    result.ProductId = sellDTO.ProductId;
+                    result.GeneralPrice = sellDTO.GeneralPrice;
+                    result.UpdatedAt = DateTime.Now;
+
+                    _context.Sells.Update(result);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                return false;
+            }
+            catch { return false; }
         }
     }
 }

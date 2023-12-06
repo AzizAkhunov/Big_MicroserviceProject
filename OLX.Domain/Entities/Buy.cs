@@ -7,7 +7,7 @@ namespace OLX.Domain.Entities
     {
         public int UserId { get; set; }
         public User User { get; set; }
-        public int ProductId { get; set; }
+        public int SellId { get; set; }
         public decimal Amount { get; set; }
     }
 }

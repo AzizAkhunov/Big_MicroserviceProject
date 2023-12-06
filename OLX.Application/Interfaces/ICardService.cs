@@ -9,6 +9,6 @@ namespace OLX.Application.Interfaces
         ValueTask<bool> CreateCardAsync(CardsDTO cardDTO);
         ValueTask<bool> DeleteCardAsync(int id);
         ValueTask<bool> UpdateCardAsync(int id, CardsDTO cardDTO);
-        ValueTask<User> GetCardById(int id);
+        ValueTask<Card> GetCardById(int id);
     }
 }
