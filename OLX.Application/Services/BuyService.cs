@@ -3,11 +3,6 @@ using OLX.Application.Interfaces;
 using OLX.Domain.DTOs;
 using OLX.Domain.Entities;
 using OLX.Infastructure.DbContexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OLX.Application.Services
 {
