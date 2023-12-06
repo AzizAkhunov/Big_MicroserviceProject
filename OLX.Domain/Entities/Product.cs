@@ -12,5 +12,6 @@ namespace OLX.Domain.Entities
         public string Size { get; set; }
         public decimal Price { get; set; }
         public bool Status { get; set; } = false; //true bulsa sotuvda buladi false bulsa sotuvda bulmaydi
+        public Sell? Sell { get; set; }
     }
 }

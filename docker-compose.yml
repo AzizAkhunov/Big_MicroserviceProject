@@ -24,9 +24,6 @@ services:
       context: .
       dockerfile: GAI.Api/Dockerfile
 
-
-
-
   olx.api:
     image: ${DOCKER_REGISTRY-}olxapi
     build:
