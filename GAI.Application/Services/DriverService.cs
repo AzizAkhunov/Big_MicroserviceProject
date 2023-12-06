@@ -102,14 +102,25 @@ namespace GAI.Application.Services
                 return false;
             }
         }
-        public Driver GetDriverPunishments(int driverId)
+        public string GetDriverPunishments(int driverId)
         {
-            Driver driver = _dbContext.Drivers.FirstOrDefault(x => x.Id == driverId);
-            driver = _dbContext.Drivers
-                .Include(x => x.Punishments)
-                .FirstOrDefault();
+            var driversPunishments = _dbContext.Drivers
+                .Include(x => x.Punishments).FirstOrDefault(x => x.Id == driverId);
 
-            return driver;
+            if (driversPunishments != null)
+            {
+                Console.WriteLine($"Driver ID: {driversPunishments.Id}, Name: {driversPunishments.FirstName}");
+
+                foreach (var punishment in driversPunishments.Punishments)
+                {
+                    return $"  Punishment ID: {punishment.Id}, Description: {punishment.Description}";
+                }
+            }
+            else
+            {
+                return $"Driver with ID {driverId} not found.";
+            }
+            return "";
         }
     }
 }

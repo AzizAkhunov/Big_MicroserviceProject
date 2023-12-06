@@ -19,6 +19,6 @@ namespace GAI.Domain.Entities
         public string CarNumber { get; set; }
         public string CarColor { get; set; }
         public bool CarDocuments { get; set; }
-        public ICollection<Punishment>? Punishments { get; } = new List<Punishment>();
+        public ICollection<Punishment>? Punishments { get; set; } = new List<Punishment>();
     }
 }

@@ -10,6 +10,6 @@ namespace GAI.Application.Interfaces
         ValueTask<bool> DeleteDriverAsync(int id);
         ValueTask<bool> UpdateDriverAsync(int id, DriverDTO driverDTO);
         ValueTask<Driver> GetDriverById(int id);
-        Driver GetDriverPunishments(int driverId);
+        string GetDriverPunishments(int driverId);
     }
 }

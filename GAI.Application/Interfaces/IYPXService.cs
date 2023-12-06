@@ -10,6 +10,5 @@ namespace GAI.Application.Interfaces
         ValueTask<bool> DeleteYPXAsync(int id);
         ValueTask<bool> UpdateYPXAsync(int id, YPXDTO ypxDTO);
         ValueTask<YPX> GetYPXById(int id);
-        YPX GetYPXPunishments(int gaiId);
     }
 }

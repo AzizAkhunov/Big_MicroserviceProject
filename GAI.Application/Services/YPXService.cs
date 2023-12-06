@@ -97,13 +97,5 @@ namespace GAI.Application.Services
                 return false;
             }
         }
-        public YPX GetYPXPunishments(int gaiId)
-        {
-           YPX gai = _dbContext.GAies
-                .Include(x => x.Punishments)
-                .FirstOrDefault(x => x.Id == gaiId);
-
-            return gai;
-        }
     }
 }
