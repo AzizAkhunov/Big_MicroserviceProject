@@ -1,7 +1,5 @@
 version: '3.4'
 
-networks:
-  backend:
 
 services:
   gateaway.api:
@@ -21,3 +19,14 @@ services:
     build:
       context: .
       dockerfile: OLX.Api/Dockerfile
+
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=Numsey#2022
+      - ACCEPT_EULA=Y
+    volumes:
+      - c:\mssql:/var/opt/mssql/data
+    ports:
+      - "1450:1433"
