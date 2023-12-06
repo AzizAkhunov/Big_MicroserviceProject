@@ -5,7 +5,7 @@ using OLX.Domain.DTOs;
 
 namespace OLX.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class SellsController : ControllerBase
     {
