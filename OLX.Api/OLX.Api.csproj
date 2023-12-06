@@ -24,10 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\GAI.Application\GAI.Application.csproj" />
+    <ProjectReference Include="..\OLX.Application\OLX.Application.csproj" />
     <ProjectReference Include="..\OLX.Infastructure\OLX.Infastructure.csproj" />
   </ItemGroup>
 

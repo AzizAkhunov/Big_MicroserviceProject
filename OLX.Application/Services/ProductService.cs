@@ -40,7 +40,7 @@ namespace OLX.Application.Services
             }
         }
 
-        public async ValueTask<bool> DeleteUserAsync(int id)
+        public async ValueTask<bool> DeleteProductAsync(int id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace OLX.Application.Services
             return result;
         }
 
-        public async ValueTask<Product> GetUserById(int id)
+        public async ValueTask<Product> GetProductById(int id)
         {
             var result = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
@@ -72,7 +72,7 @@ namespace OLX.Application.Services
             return new Product();
         }
 
-        public async ValueTask<bool> UpdateUserAsync(int id, ProductsDTO productDTO)
+        public async ValueTask<bool> UpdateProductAsync(int id, ProductsDTO productDTO)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
             if (product is not null)
