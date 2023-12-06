@@ -1,3 +1,4 @@
+using GAI.Application;
 using GAI.Application.Interfaces;
 using GAI.Application.Services;
 using GAI.Infastructure.DbContexts;
@@ -19,11 +20,7 @@ builder.Services.AddDbContext<GAIDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 
-builder.Services.AddScoped<IDriverService, DriverService>();
-builder.Services.AddScoped<IYPXService, YPXService>();
-builder.Services.AddScoped<IPunishmentService, PunishmentService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddService();
 
 
 builder.Services.AddSwaggerGen(options =>
