@@ -9,7 +9,7 @@ namespace OLX.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public string Caountry { get; set; }
+        public string Country { get; set; }
         public ICollection<Buy> Buys { get; set; }
         public ICollection<Card> Cards { get; set; }
         public ICollection<Product> Products { get; set; }
