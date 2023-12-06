@@ -52,5 +52,23 @@ namespace OLX.Api.Controllers
             }
             return BadRequest("Error!");
         }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetUsersProducts(int userId)
+        {
+            var result = await _service.GetUsersProducts(userId);
+            return Ok(result.Products);
+        }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetUsersCards(int userId)
+        {
+            var result = await _service.GetUsersCards(userId);
+            return Ok(result.Cards);
+        }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetUsersBuys(int userId)
+        {
+            var result = await _service.GetUsersBuys(userId);
+            return Ok(result.Buys);
+        }
     }
 }

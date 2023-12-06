@@ -30,3 +30,10 @@ services:
       context: .
       dockerfile: OLX.Api/Dockerfile
 
+
+  yandextaxi.api:
+    image: ${DOCKER_REGISTRY-}yandextaxiapi
+    build:
+      context: .
+      dockerfile: YandexTaxi.Api/Dockerfile
+

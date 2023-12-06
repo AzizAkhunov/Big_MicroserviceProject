@@ -6,7 +6,8 @@
       "serviceActions": {
         "gai.api": "StartDebugging",
         "gateaway.api": "StartDebugging",
-        "olx.api": "StartDebugging"
+        "olx.api": "StartDebugging",
+        "yandextaxi.api": "StartDebugging"
       }
     }
   }

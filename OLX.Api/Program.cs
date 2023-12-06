@@ -1,8 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using OLX.Application;
 using OLX.Infastructure.DbContexts;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 

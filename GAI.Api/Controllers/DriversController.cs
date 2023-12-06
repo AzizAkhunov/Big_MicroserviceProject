@@ -55,11 +55,5 @@ namespace GAI.Api.Controllers
             }
             return BadRequest("NotDeleted!");
         }
-        [HttpGet]
-        public IActionResult DriversPunishments(int driverId)
-        {
-            var result = _service.GetDriverPunishments(driverId);
-            return Ok(result);
-        }
     }
 }

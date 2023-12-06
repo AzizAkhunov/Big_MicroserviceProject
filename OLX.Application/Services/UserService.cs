@@ -90,5 +90,35 @@ namespace OLX.Application.Services
             }
             return false;
         }
+        public async ValueTask<User> GetUsersProducts(int id)
+        {
+            var user = await _context.Users.Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is not null)
+            {
+                return user;
+            }
+            return new User();
+        }
+        public async ValueTask<User> GetUsersBuys(int id)
+        {
+            var user = await _context.Users.Include(x => x.Buys).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is not null)
+            {
+                return user;
+            }
+            return new User();
+        }
+        public async ValueTask<User> GetUsersCards(int id)
+        {
+            var user = await _context.Users.Include(x => x.Cards).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is not null)
+            {
+                return user;
+            }
+            return new User();
+        }
     }
 }

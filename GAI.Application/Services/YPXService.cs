@@ -56,13 +56,13 @@ namespace GAI.Application.Services
 
         public async ValueTask<ICollection<YPX>> GetAllAsync()
         {
-            var result = await _dbContext.GAies.ToListAsync();
+            var result = await _dbContext.GAies.Include(x => x.Punishments).ToListAsync();
             return result;
         }
 
         public async ValueTask<YPX> GetYPXById(int id)
         {
-            var result = await _dbContext.GAies.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _dbContext.GAies.Include(x => x.Punishments).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;

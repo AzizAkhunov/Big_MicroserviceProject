@@ -65,7 +65,7 @@ namespace GAI.Application.Services
 
         public async ValueTask<Driver> GetDriverById(int id)
         {
-            var result = await _dbContext.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _dbContext.Drivers.Include(x => x.Punishments).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;
@@ -101,26 +101,6 @@ namespace GAI.Application.Services
             {
                 return false;
             }
-        }
-        public string GetDriverPunishments(int driverId)
-        {
-            var driversPunishments = _dbContext.Drivers
-                .Include(x => x.Punishments).FirstOrDefault(x => x.Id == driverId);
-
-            if (driversPunishments != null)
-            {
-                Console.WriteLine($"Driver ID: {driversPunishments.Id}, Name: {driversPunishments.FirstName}");
-
-                foreach (var punishment in driversPunishments.Punishments)
-                {
-                    return $"  Punishment ID: {punishment.Id}, Description: {punishment.Description}";
-                }
-            }
-            else
-            {
-                return $"Driver with ID {driverId} not found.";
-            }
-            return "";
         }
     }
 }
