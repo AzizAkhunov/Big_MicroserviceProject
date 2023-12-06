@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "gai.api": "StartDebugging",
-        "gateaway.api": "StartDebugging"
+        "gateaway.api": "StartDebugging",
+        "olx.api": "StartDebugging"
       }
     }
   }

@@ -12,6 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+
+
+builder.Services.AddDbContext<GAIDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<IDriverService, DriverService>();
+builder.Services.AddScoped<IYPXService, YPXService>();
+builder.Services.AddScoped<IPunishmentService, PunishmentService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("V1", new OpenApiInfo
@@ -45,20 +59,6 @@ builder.Services.AddSwaggerGen(options =>
 
     });
 });
-
-
-builder.Services.AddDbContext<GAIDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
-builder.Services.AddScoped<IDriverService, DriverService>();
-builder.Services.AddScoped<IYPXService, YPXService>();
-builder.Services.AddScoped<IPunishmentService, PunishmentService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-
-
-
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opttins =>

@@ -9,10 +9,6 @@ services:
     build:
       context: .
       dockerfile: GateAway.Api/Dockerfile
-    ports:
-        - 7180:80
-    networks:
-        - backend
 
   gai.api:
     image: ${DOCKER_REGISTRY-}gaiapi
@@ -20,3 +16,8 @@ services:
       context: .
       dockerfile: GAI.Api/Dockerfile
 
+  olx.api:
+    image: ${DOCKER_REGISTRY-}olxapi
+    build:
+      context: .
+      dockerfile: OLX.Api/Dockerfile

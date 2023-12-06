@@ -1,6 +1,6 @@
 ﻿using GAI.Application.Interfaces;
 using GAI.Domain.ViewModels;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GAI.Api.Controllers
@@ -15,12 +15,14 @@ namespace GAI.Api.Controllers
         {
             _service = service;
         }
+        [Authorize]
         [HttpGet]
         public async ValueTask<IActionResult> GetAllPunishmentsAsync()
         {
             var result = await _service.GetAllPunishmentsAsync();
             return Ok(result);
         }
+        [Authorize]
         [HttpPost]
         public async ValueTask<IActionResult> CreatePunishmentAsync(PunishmentDTO punishmentDTO)
         {
@@ -31,11 +33,13 @@ namespace GAI.Api.Controllers
             }
             return BadRequest("Error!");
         }
+        [Authorize]
         [HttpGet]
         public async ValueTask<IActionResult> GetPunishmentByIdAsync(int id)
         {
             return Ok(await _service.GetPunishmentByIdAsync(id));
         }
+        [Authorize]
         [HttpPut]
         public async ValueTask<IActionResult> UpdatePunishmentAsync(int id, PunishmentDTO punishmentDTO)
         {
@@ -46,6 +50,7 @@ namespace GAI.Api.Controllers
             }
             return BadRequest("Error!");
         }
+        [Authorize]
         [HttpDelete]
         public async ValueTask<IActionResult> DeletePunishmentByIdAsync(int id)
         {

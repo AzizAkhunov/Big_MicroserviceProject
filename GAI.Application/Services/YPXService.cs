@@ -21,6 +21,8 @@ namespace GAI.Application.Services
             {
                 var ypx = new YPX()
                 {
+                    UserName = ypxDTO.UserName,
+                    Password = ypxDTO.Password,
                     FirstName = ypxDTO.FirstName,
                     LastName = ypxDTO.LastName,
                     Passport = ypxDTO.Passport,
@@ -76,6 +78,8 @@ namespace GAI.Application.Services
                 var gai = await _dbContext.GAies.FirstOrDefaultAsync(x => x.Id == id);
                 if (gai is not null)
                 {
+                    gai.UserName = ypxDTO.UserName;
+                    gai.Password = ypxDTO.Password;
                     gai.FirstName = ypxDTO.FirstName;
                     gai.LastName = ypxDTO.LastName;
                     gai.Passport = ypxDTO.Passport;
