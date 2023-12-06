@@ -55,11 +55,5 @@ namespace GAI.Api.Controllers
             }
             return BadRequest("NotDeleted!");
         }
-        [HttpGet]
-        public IActionResult YPXsPunishments(int GaiId)
-        {
-            var result = _service.GetYPXPunishments(GaiId);
-            return Ok(result);
-        }
     }
 }

@@ -59,7 +59,7 @@ namespace GAI.Application.Services
 
         public async ValueTask<ICollection<Driver>> GetAllAsync()
         {
-            var result = await _dbContext.Drivers.ToListAsync();
+            var result = await _dbContext.Drivers.Include(x => x.Punishments).ToListAsync();
             return result;
         }
 
