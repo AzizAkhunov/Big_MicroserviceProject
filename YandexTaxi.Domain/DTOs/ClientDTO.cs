@@ -1,10 +1,9 @@
-﻿namespace YandexTaxi.Domain.Entities
+﻿namespace YandexTaxi.Domain.DTOs
 {
-    public class Client : BaseClassForModels
+    public class ClientDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Card> Cards { get; set; }
     }
 }

@@ -2,11 +2,12 @@
 
 namespace YandexTaxi.Domain.Entities
 {
-    [Table("Orders")]
-    public class Order : BaseClassForModels
+    [Table("Cards")]
+    public class Card : BaseClassForModels
     {
-        public int DriverId { get; set; }
-        public Driver? Driver { get; set; }
+        public int CardNumber { get; set; }
+        public string Verify { get; set; }
+        public decimal Amount { get; set; }
         public int ClientId { get; set; }
         public Client? Client { get; set; }
     }

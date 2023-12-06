@@ -1,5 +1,8 @@
-﻿namespace YandexTaxi.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace YandexTaxi.Domain.Entities
 {
+    [Table("Cars")]
     public class Car : BaseClassForModels
     {
         public string Model { get; set; }
