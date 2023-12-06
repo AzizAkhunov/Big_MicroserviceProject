@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GAI.Domain.ViewModels
+namespace GAI.Domain.DTOs
 {
     public class PunishmentDTO
     {

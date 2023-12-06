@@ -1,5 +1,5 @@
 ﻿using GAI.Application.Interfaces;
-using GAI.Domain.ViewModels;
+using GAI.Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
-﻿using GAI.Domain.Entities;
-using GAI.Domain.ViewModels;
+﻿using GAI.Domain.DTOs;
+using GAI.Domain.Entities;
 
 namespace GAI.Application.Interfaces
 {

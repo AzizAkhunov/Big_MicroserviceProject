@@ -1,6 +1,6 @@
 ﻿using GAI.Application.Interfaces;
+using GAI.Domain.DTOs;
 using GAI.Domain.Entities;
-using GAI.Domain.ViewModels;
 using GAI.Infastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -89,6 +89,7 @@ namespace GAI.Application.Services
                     driver.CarNumber = driverDTO.CarNumber;
                     driver.CarColor = driverDTO.CarColor;
                     driver.CarDocuments = driverDTO.CarDocuments;
+                    driver.UpdatedAt = DateTime.Now;
 
                     _dbContext.Drivers.Update(driver);
                     await _dbContext.SaveChangesAsync();

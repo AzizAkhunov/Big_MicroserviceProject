@@ -1,6 +1,6 @@
 ﻿using GAI.Application.Interfaces;
+using GAI.Domain.DTOs;
 using GAI.Domain.Entities;
-using GAI.Domain.ViewModels;
 using GAI.Infastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,6 +81,7 @@ namespace GAI.Application.Services
                     punishment.DriverId = punishmentDTO.DriverId;
                     punishment.Price = punishmentDTO.Price;
                     punishment.Description = punishmentDTO.Description;
+                    punishment.UpdatedAt = DateTime.Now;
 
                     _dbContext.Punishments.Update(punishment);
                     await _dbContext.SaveChangesAsync();

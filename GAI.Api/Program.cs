@@ -16,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 
 builder.Services.AddDbContext<GAIDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 
 builder.Services.AddScoped<IDriverService, DriverService>();

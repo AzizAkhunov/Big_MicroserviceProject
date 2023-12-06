@@ -1,4 +1,4 @@
-﻿namespace GAI.Domain.ViewModels
+﻿namespace GAI.Domain.DTOs
 {
     public class YPXDTO
     {

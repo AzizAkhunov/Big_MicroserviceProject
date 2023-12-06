@@ -1,9 +1,8 @@
 ﻿using GAI.Application.Interfaces;
+using GAI.Domain.DTOs;
 using GAI.Domain.Entities;
-using GAI.Domain.ViewModels;
 using GAI.Infastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace GAI.Application.Services
 {
@@ -85,6 +84,7 @@ namespace GAI.Application.Services
                     gai.Passport = ypxDTO.Passport;
                     gai.Description = ypxDTO.Description;
                     gai.YPXDocument = ypxDTO.YPXDocument;
+                    gai.UpdatedAt = DateTime.Now;
 
                     _dbContext.GAies.Update(gai);
                     await _dbContext.SaveChangesAsync();
