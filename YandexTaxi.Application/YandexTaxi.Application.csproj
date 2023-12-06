@@ -20,4 +20,12 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YandexTaxi.Domain\YandexTaxi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
