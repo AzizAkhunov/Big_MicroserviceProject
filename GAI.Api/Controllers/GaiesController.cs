@@ -59,7 +59,7 @@ namespace GAI.Api.Controllers
         public IActionResult YPXsPunishments(int GaiId)
         {
             var result = _service.GetYPXPunishments(GaiId);
-            return Ok(result.Punishments);
+            return Ok(result);
         }
     }
 }
