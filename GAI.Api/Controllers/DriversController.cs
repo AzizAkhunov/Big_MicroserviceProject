@@ -1,6 +1,9 @@
 ﻿using GAI.Application.Interfaces;
 using GAI.Domain.DTOs;
+using GAI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
 
 namespace GAI.Api.Controllers
 {
@@ -9,10 +12,12 @@ namespace GAI.Api.Controllers
     public class DriversController : ControllerBase
     {
         private readonly IDriverService _service;
+        private readonly IDistributedCache _distributedCache;
 
-        public DriversController(IDriverService service)
+        public DriversController(IDriverService service, IDistributedCache distributedCache)
         {
             _service = service;
+            _distributedCache = distributedCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllDriversAsync()
@@ -33,7 +38,22 @@ namespace GAI.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetDriverByIdAsync(int id)
         {
-            return Ok(await _service.GetDriverById(id));
+            var fromCache = await _distributedCache.GetStringAsync($"Driver{id}");
+
+            if (fromCache is null)
+            {
+                var values = await _service.GetDriverById(id);
+
+                fromCache = JsonSerializer.Serialize(values);
+                await _distributedCache.SetStringAsync($"Driver{values.Id}", fromCache, new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60)
+                });
+
+            }
+
+            var result = JsonSerializer.Deserialize<Driver>(fromCache);
+            return Ok(result);
         }
         [HttpPut]
         public async ValueTask<IActionResult> UpdateDriverAsync(int id,DriverDTO driverDTO)
@@ -55,5 +75,6 @@ namespace GAI.Api.Controllers
             }
             return BadRequest("NotDeleted!");
         }
+
     }
 }
