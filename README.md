@@ -61,5 +61,5 @@ Relations:
           Client (One to Many) Card => Student Cartalari uchuns
 
 
-                      Usings
-      MemoryCache,FluentAPI,DependencyInjection
+                            Usings Requireds
+      MemoryCache,FluentAPI,DependencyInjection,Docker,Docker Compose,JWT
