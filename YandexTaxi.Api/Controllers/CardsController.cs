@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using YandexTaxi.Application.Interfaces;
 using YandexTaxi.Domain.DTOs;
 
@@ -56,6 +57,15 @@ namespace YandexTaxi.Api.Controllers
         {
             var result = await _service.GetCardById(id);
             return Ok(result.Amount);
+        }
+        [HttpPost]
+        public async ValueTask<IActionResult> Replenishment(int cardNumber,decimal amount)
+        {
+            if (await _service.Replenishment(cardNumber, amount))
+            {
+                return Ok("Balansingiz tuldirildi");
+            }
+            return BadRequest("Error!");
         }
     }
 }
