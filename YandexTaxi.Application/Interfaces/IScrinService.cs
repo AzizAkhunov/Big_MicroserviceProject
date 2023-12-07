@@ -6,7 +6,7 @@ namespace YandexTaxi.Application.Interfaces
     public interface IScrinService
     {
         ValueTask<ICollection<Scrin>> GetAllAsync();
-        ValueTask<bool> CreateScrinAsync(int id,ScrinDTO scrinDTO);
+        ValueTask<bool> CreateScrinAsync(int clientid,ScrinDTO scrinDTO);
         ValueTask<bool> DeleteScrinAsync(int id);
         ValueTask<bool> UpdateScrinAsync(int id, ScrinDTO scrinDTO);
         ValueTask<Scrin> GetScrinById(int id);

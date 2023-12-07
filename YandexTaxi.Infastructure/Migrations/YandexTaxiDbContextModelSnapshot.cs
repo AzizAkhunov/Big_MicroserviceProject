@@ -196,6 +196,9 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -235,6 +238,9 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.Property<int>("Longtitude")
                         .HasColumnType("int");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -247,6 +253,9 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.ToTable("Scrins");
                 });
@@ -300,7 +309,15 @@ namespace YandexTaxi.Infastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("YandexTaxi.Domain.Entities.Order", "Order")
+                        .WithOne("Scrin")
+                        .HasForeignKey("YandexTaxi.Domain.Entities.Scrin", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Car");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("YandexTaxi.Domain.Entities.Car", b =>
@@ -320,6 +337,11 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("YandexTaxi.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Scrin");
                 });
 #pragma warning restore 612, 618
         }

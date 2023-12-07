@@ -25,6 +25,7 @@ namespace YandexTaxi.Application.Services
                     Price = scrinDTO.Price,
                     CarId = scrinDTO.CarId,
                     Longtitude = scrinDTO.Longtitude,
+                    OrderId = scrinDTO.OrderId,
                 };
                 if (scrin.Longtitude > 3)
                 {
@@ -123,6 +124,7 @@ namespace YandexTaxi.Application.Services
                     result.Price = scrinDTO.Price;
                     result.CarId = scrinDTO.CarId;
                     result.Longtitude = scrinDTO.Longtitude;
+                    result.OrderId = scrinDTO.OrderId;
                     result.UpdatedAt = DateTime.Now;
 
                     _context.Scrins.Update(result);

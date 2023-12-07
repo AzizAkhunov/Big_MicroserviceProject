@@ -108,6 +108,7 @@ namespace YandexTaxi.Infastructure.Migrations
                     DriverId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -140,6 +141,7 @@ namespace YandexTaxi.Infastructure.Migrations
                     CarId = table.Column<int>(type: "int", nullable: false),
                     Longtitude = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -152,6 +154,12 @@ namespace YandexTaxi.Infastructure.Migrations
                         name: "FK_Scrins_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Scrins_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -181,6 +189,12 @@ namespace YandexTaxi.Infastructure.Migrations
                 name: "IX_Scrins_CarId",
                 table: "Scrins",
                 column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scrins_OrderId",
+                table: "Scrins",
+                column: "OrderId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -190,16 +204,16 @@ namespace YandexTaxi.Infastructure.Migrations
                 name: "Cards");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Scrins");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "Cars");
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Drivers");

@@ -88,5 +88,24 @@ namespace YandexTaxi.Application.Services
             }
             catch { return false; }
         }
+        public async ValueTask<bool> givePrice(int scrinId,int orderId)
+        {
+            var scrinService = new ScrinService(_context);
+
+            try
+            {
+                var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+                if (order is not null)
+                {
+                    order.Price = await scrinService.GiveToll(scrinId);
+                    await _context.SaveChangesAsync();
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
