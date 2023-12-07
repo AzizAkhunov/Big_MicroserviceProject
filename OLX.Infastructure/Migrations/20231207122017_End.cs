@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OLX.Infastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Start : Migration
+    public partial class End : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

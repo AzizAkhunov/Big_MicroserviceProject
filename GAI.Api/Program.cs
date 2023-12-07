@@ -11,11 +11,6 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddStackExchangeRedisCache(options =>
-{
-    options.Configuration = "localhost";
-    options.InstanceName = "local";
-});
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -89,14 +84,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
         options.SwaggerEndpoint("/swagger/V1/swagger.json", "Auth Demo API");
-    });
-}
+});
+
 
 
 app.UseAuthentication();

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GAI.Infastructure.Migrations
 {
     [DbContext(typeof(GAIDbContext))]
-    [Migration("20231205234544_Start")]
-    partial class Start
+    [Migration("20231207122508_End")]
+    partial class End
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

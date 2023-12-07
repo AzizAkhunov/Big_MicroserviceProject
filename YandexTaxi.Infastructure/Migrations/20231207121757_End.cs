@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YandexTaxi.Infastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class End : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

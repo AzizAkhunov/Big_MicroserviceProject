@@ -12,8 +12,8 @@ using YandexTaxi.Infastructure.DbContexts;
 namespace YandexTaxi.Infastructure.Migrations
 {
     [DbContext(typeof(YandexTaxiDbContext))]
-    [Migration("20231207063636_Init")]
-    partial class Init
+    [Migration("20231207121757_End")]
+    partial class End
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

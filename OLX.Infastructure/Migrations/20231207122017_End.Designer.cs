@@ -12,8 +12,8 @@ using OLX.Infastructure.DbContexts;
 namespace OLX.Infastructure.Migrations
 {
     [DbContext(typeof(OLXDbContext))]
-    [Migration("20231206162350_Start")]
-    partial class Start
+    [Migration("20231207122017_End")]
+    partial class End
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

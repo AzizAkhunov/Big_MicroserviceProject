@@ -9,11 +9,18 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 
 builder.Services.AddOcelot(builder.Configuration);
 
+
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 await app.UseOcelot();
 

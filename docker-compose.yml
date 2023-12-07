@@ -1,7 +1,5 @@
 version: '3.4'
 
-networks:
-  backend:
 
 services:
   sqldata:
@@ -19,15 +17,14 @@ services:
     build:
       context: .
       dockerfile: GateAway.Api/Dockerfile
-    ports:
-        - 7080:80
-    networks:
-        - backend
+
+
   gai.api:
     image: ${DOCKER_REGISTRY-}gaiapi
     build:
       context: .
       dockerfile: GAI.Api/Dockerfile
+
 
   olx.api:
     image: ${DOCKER_REGISTRY-}olxapi
@@ -36,9 +33,9 @@ services:
       dockerfile: OLX.Api/Dockerfile
 
 
+
   yandextaxi.api:
     image: ${DOCKER_REGISTRY-}yandextaxiapi
     build:
       context: .
       dockerfile: YandexTaxi.Api/Dockerfile
-

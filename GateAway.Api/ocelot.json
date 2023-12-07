@@ -2,11 +2,11 @@
   "Routes": [
     // Gai
     {
-      "DownstreamPathTemplate": "/api/Gaies/GetAllYPXAsync",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/Gaies/GetAllYPX",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "olx.api",
+          "Host": "gai.api",
           "Port": 80
         }
       ],

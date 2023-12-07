@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GAI.Infastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Start : Migration
+    public partial class End : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
