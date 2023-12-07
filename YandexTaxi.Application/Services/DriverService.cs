@@ -53,13 +53,13 @@ namespace YandexTaxi.Application.Services
 
         public async ValueTask<ICollection<Driver>> GetAllAsync()
         {
-            var result = await _context.Drivers.Include(x => x.Orders).ToListAsync();
+            var result = await _context.Drivers.Include(x => x.Orders).Include(x => x.Scrins).ToListAsync();
             return result;
         }
 
         public async ValueTask<Driver> GetDriverById(int id)
         {
-            var result = await _context.Drivers.Include(x => x.Orders).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _context.Drivers.Include(x => x.Orders).Include(x => x.Scrins).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;
@@ -120,10 +120,6 @@ namespace YandexTaxi.Application.Services
                 }
             }
             return false;
-        }
-        public async ValueTask<ICollection<Driver>> GetAllDriversScrins()
-        {
-            return await _context.Drivers.Include(x => x.Orders).ToListAsync();
         }
     }
 }

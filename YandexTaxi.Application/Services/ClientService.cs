@@ -52,13 +52,13 @@ namespace YandexTaxi.Application.Services
 
         public async ValueTask<ICollection<Client>> GetAllAsync()
         {
-            var result = await _context.Clients.ToListAsync();
+            var result = await _context.Clients.Include(x => x.Orders).Include(x => x.Cards).ToListAsync();
             return result;
         }
 
         public async ValueTask<Client> GetClientById(int id)
         {
-            var result = await _context.Clients.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _context.Clients.Include(x => x.Orders).Include(x => x.Cards).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;

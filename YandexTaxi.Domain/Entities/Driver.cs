@@ -12,6 +12,6 @@ namespace YandexTaxi.Domain.Entities
         public decimal Amount { get; set; } = 1000000;
         public Car? Car { get; set; }
         public ICollection<Order>? Orders { get; set; }
-        public ICollection<Scrin> Scrins { get; set; }
+        public ICollection<Scrin>? Scrins { get; set; }
     }
 }

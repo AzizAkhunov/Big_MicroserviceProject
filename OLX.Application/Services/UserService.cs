@@ -54,13 +54,13 @@ namespace OLX.Application.Services
 
         public async ValueTask<ICollection<User>> GetAllUserAsync()
         {
-            var result = await _context.Users.ToListAsync();
+            var result = await _context.Users.Include(x => x.Cards).Include(x => x.Buys).Include(x => x.Products).ToListAsync();
             return result;
         }
 
         public async ValueTask<User> GetUserById(int id)
         {
-            var result = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _context.Users.Include(x => x.Cards).Include(x => x.Buys).Include(x => x.Products).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;
@@ -79,6 +79,8 @@ namespace OLX.Application.Services
                     user.LastName = userDTO.LastName;
                     user.PhoneNumber = userDTO.PhoneNumber;
                     user.Country = userDTO.Country;
+                    user.UpdatedAt = DateTime.Now;
+
                     _context.Users.Update(user);
                     await _context.SaveChangesAsync();
                     return true;
