@@ -60,10 +60,5 @@ namespace YandexTaxi.Api.Controllers
             }
             return BadRequest("Sizning Oilingizni kutara olmaymiz siz yetarli vaqt ishlamadingiz Yoki Kotta narx talab qolipsiz");
         }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetAllDriversesScrins()
-        {
-            return Ok(await _service.GetAllDriversScrins());
-        }
     }
 }

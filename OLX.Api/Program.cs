@@ -24,7 +24,7 @@ builder.Services.AddService();
 builder.Services.AddDbContext<OLXDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 

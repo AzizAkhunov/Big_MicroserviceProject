@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OLX.Application.Interfaces;
 using OLX.Domain.DTOs;
+using OLX.Domain.Entities;
 
 namespace OLX.Api.Controllers
 {
@@ -9,15 +11,23 @@ namespace OLX.Api.Controllers
     public class CardsController : ControllerBase
     {
         private readonly ICardService _service;
-
-        public CardsController(ICardService service)
+        private readonly IMemoryCache _memoryCache;
+        public CardsController(ICardService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllCards()
         {
-            return Ok(await _service.GetAllCardAsync());
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllCardAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Card>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateCardAsync(CardsDTO card)

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using OLX.Application.Interfaces;
 using OLX.Domain.DTOs;
+using OLX.Domain.Entities;
 
 namespace OLX.Api.Controllers
 {
@@ -10,15 +12,24 @@ namespace OLX.Api.Controllers
     public class SellsController : ControllerBase
     {
         private readonly ISellService _service;
+        private readonly IMemoryCache _memoryCache;
 
-        public SellsController(ISellService service)
+        public SellsController(ISellService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllSells()
         {
-            return Ok(await _service.GetAllSellAsync());
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllSellAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Sell>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateSellAsync(SellsDTO sell)
