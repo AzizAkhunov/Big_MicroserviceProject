@@ -26,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\YandexTaxi.Application\YandexTaxi.Application.csproj" />
     <ProjectReference Include="..\YandexTaxi.Infastructure\YandexTaxi.Infastructure.csproj" />
   </ItemGroup>
 

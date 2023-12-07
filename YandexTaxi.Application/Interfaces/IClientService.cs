@@ -15,6 +15,6 @@ namespace YandexTaxi.Application.Interfaces
         ValueTask<bool> DeleteClientAsync(int id);
         ValueTask<bool> UpdateDriverAsync(int id, ClientDTO clientDTO);
         ValueTask<Client> GetDriverById(int id);
-        ValueTask<bool> Leave_FeedBack(int driverId, string description)
+        ValueTask<bool> Leave_FeedBack(int driverId, string description);
     }
 }

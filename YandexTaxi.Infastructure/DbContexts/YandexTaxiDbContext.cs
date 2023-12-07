@@ -41,6 +41,14 @@ namespace YandexTaxi.Infastructure.DbContexts
                 .WithOne(x => x.Car)
                 .HasForeignKey(x => x.CarId)
                 .IsRequired();
+
+            modelBuilder.Entity<Driver>()
+                .Property(d => d.Descriptions)
+                .HasConversion(v => string.Join(',', v),   // Convert ICollection<string> to a single string
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+
+            modelBuilder.Entity<Driver>()
+                .Ignore(d => d.Descriptions);
         }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Car> Cars { get; set; }
