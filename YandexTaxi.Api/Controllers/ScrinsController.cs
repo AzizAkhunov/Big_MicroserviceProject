@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using YandexTaxi.Application.Interfaces;
 using YandexTaxi.Domain.DTOs;
+using YandexTaxi.Domain.Entities;
 
 namespace YandexTaxi.Api.Controllers
 {
@@ -10,10 +12,11 @@ namespace YandexTaxi.Api.Controllers
     public class ScrinsController : ControllerBase
     {
         private readonly IScrinService _service;
-
-        public ScrinsController(IScrinService service)
+        private readonly IMemoryCache _memoryCache;
+        public ScrinsController(IScrinService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateScrinAsync(ScrinDTO scrin)
@@ -32,7 +35,14 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllAsync()
         {
-            return Ok(await _service.GetAllAsync());
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Scrin>);
         }
         [HttpDelete]
         public async ValueTask<IActionResult> DeleteScrinById(int id)

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using YandexTaxi.Application.Interfaces;
 using YandexTaxi.Domain.DTOs;
+using YandexTaxi.Domain.Entities;
 
 namespace YandexTaxi.Api.Controllers
 {
@@ -9,15 +11,23 @@ namespace YandexTaxi.Api.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _service;
-
-        public OrdersController(IOrderService service)
+        private readonly IMemoryCache _memoryCache;
+        public OrdersController(IOrderService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllOrders()
         {
-            return Ok(await _service.GetAllAsync());
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Order>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateOrderAsync(OrderDTO order)
