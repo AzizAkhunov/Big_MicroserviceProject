@@ -21,11 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\YandexTaxi.Domain\YandexTaxi.Domain.csproj" />
+    <ProjectReference Include="..\YandexTaxi.Infastructure\YandexTaxi.Infastructure.csproj" />
   </ItemGroup>
 
 </Project>

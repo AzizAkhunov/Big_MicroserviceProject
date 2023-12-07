@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YandexTaxi.Domain.Entities
 {
     [Table("Cards")]
     public class Card : BaseClassForModels
     {
+        [Key]
         public int CardNumber { get; set; }
         public string Verify { get; set; }
         public decimal Amount { get; set; }
