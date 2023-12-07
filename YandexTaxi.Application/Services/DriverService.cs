@@ -1,34 +1,124 @@
-﻿using YandexTaxi.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using YandexTaxi.Application.Interfaces;
 using YandexTaxi.Domain.DTOs;
 using YandexTaxi.Domain.Entities;
+using YandexTaxi.Infastructure.DbContexts;
 
 namespace YandexTaxi.Application.Services
 {
     public class DriverService : IDriverService
     {
-        public ValueTask<bool> CreateDriverAsync(DriverDTO driverDTO)
+        private readonly YandexTaxiDbContext _context;
+
+        public DriverService(YandexTaxiDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public ValueTask<bool> DeleteDriverAsync(int id)
+        public async ValueTask<bool> CreateDriverAsync(DriverDTO driverDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var driver = new Driver()
+                {
+                    FirstName = driverDTO.FirstName,
+                    LastName = driverDTO.LastName,
+                    PhoneNumber = driverDTO.PhoneNumber,
+                };
+                await _context.Drivers.AddAsync(driver);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public ValueTask<ICollection<Driver>> GetAllAsync()
+        public async ValueTask<bool> DeleteDriverAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Drivers.Remove(result);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public ValueTask<Driver> GetDriverById(int id)
+        public async ValueTask<ICollection<Driver>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _context.Drivers.ToListAsync();
+            return result;
         }
 
-        public ValueTask<bool> UpdateDriverAsync(int id, DriverDTO driverDTO)
+        public async ValueTask<Driver> GetDriverById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+            if (result is not null)
+            {
+                return result;
+            }
+            return new Driver();
+        }
+
+        public async ValueTask<bool> UpdateDriverAsync(int id, DriverDTO driverDTO)
+        {
+            try
+            {
+                var result = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+                if (result is not null)
+                {
+                    result.FirstName = driverDTO.FirstName;
+                    result.LastName = driverDTO.LastName;
+                    result.PhoneNumber = driverDTO.PhoneNumber;
+                    result.UpdatedAt = DateTime.Now;
+
+                    _context.Drivers.Update(result);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                return false;
+            }
+            catch { return false; }
+        }
+        public async ValueTask<bool> AskForIncrease(int driverId, decimal approximate_amount)
+        {
+            var driver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == driverId);
+            if (driver is not null)
+            {
+                if (driver.Orders.Count > 5)
+                {
+                    if (approximate_amount < 1500000)
+                    {
+                        driver.Amount = approximate_amount;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (driver.Orders.Count > 15)
+                {
+                    if (approximate_amount < 3500000)
+                    {
+                        driver.Amount = approximate_amount;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

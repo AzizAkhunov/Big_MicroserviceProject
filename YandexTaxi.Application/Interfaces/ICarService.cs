@@ -9,6 +9,6 @@ namespace YandexTaxi.Application.Interfaces
         ValueTask<bool> CreateCarAsync(CarDTO carDTO);
         ValueTask<bool> DeleteCarAsync(int id);
         ValueTask<bool> UpdateCarAsync(int id, CarDTO carDTO);
-        ValueTask<Driver> GetCarById(int id);
+        ValueTask<Car> GetCarById(int id);
     }
 }

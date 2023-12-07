@@ -9,6 +9,6 @@ namespace YandexTaxi.Application.Interfaces
         ValueTask<bool> CreateOrderAsync(OrderDTO orderDTO);
         ValueTask<bool> DeleteOrderAsync(int id);
         ValueTask<bool> UpdateOrderAsync(int id, OrderDTO orderDTO);
-        ValueTask<Card> GetOrderById(int id);
+        ValueTask<Order> GetOrderById(int id);
     }
 }

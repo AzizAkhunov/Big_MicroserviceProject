@@ -10,7 +10,6 @@ namespace YandexTaxi.Domain.Entities
         public Car? Car { get; set; }
         public int Longtitude { get; set; }
         public decimal Price { get; set; }
-        public decimal Bonus { get; set; }
         public bool Status { get; set; } = true; //active active emasligini aniqlash uchun 
     }
 }
