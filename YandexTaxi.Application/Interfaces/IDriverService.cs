@@ -11,5 +11,6 @@ namespace YandexTaxi.Application.Interfaces
         ValueTask<bool> UpdateDriverAsync(int id, DriverDTO driverDTO);
         ValueTask<Driver> GetDriverById(int id);
         ValueTask<bool> AskForIncrease(int driverId, decimal approximate_amount);
+        ValueTask<ICollection<Driver>> GetAllDriversScrins();
     }
 }

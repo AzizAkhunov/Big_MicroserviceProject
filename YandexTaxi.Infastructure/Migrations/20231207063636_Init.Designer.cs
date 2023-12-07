@@ -12,8 +12,8 @@ using YandexTaxi.Infastructure.DbContexts;
 namespace YandexTaxi.Infastructure.Migrations
 {
     [DbContext(typeof(YandexTaxiDbContext))]
-    [Migration("20231207044210_Start")]
-    partial class Start
+    [Migration("20231207063636_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,9 +110,6 @@ namespace YandexTaxi.Infastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Bonus")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -199,9 +196,6 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -225,40 +219,23 @@ namespace YandexTaxi.Infastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CarId")
+                    b.Property<int?>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DriverName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Longtitude")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
 
-                    b.HasIndex("OrderId")
-                        .IsUnique();
+                    b.HasIndex("DriverId");
 
                     b.ToTable("Scrins");
                 });
@@ -306,21 +283,17 @@ namespace YandexTaxi.Infastructure.Migrations
 
             modelBuilder.Entity("YandexTaxi.Domain.Entities.Scrin", b =>
                 {
-                    b.HasOne("YandexTaxi.Domain.Entities.Car", "Car")
+                    b.HasOne("YandexTaxi.Domain.Entities.Car", null)
                         .WithMany("Scrins")
-                        .HasForeignKey("CarId")
+                        .HasForeignKey("CarId");
+
+                    b.HasOne("YandexTaxi.Domain.Entities.Driver", "Driver")
+                        .WithMany("Scrins")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YandexTaxi.Domain.Entities.Order", "Order")
-                        .WithOne("Scrin")
-                        .HasForeignKey("YandexTaxi.Domain.Entities.Scrin", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Order");
+                    b.Navigation("Driver");
                 });
 
             modelBuilder.Entity("YandexTaxi.Domain.Entities.Car", b =>
@@ -340,11 +313,8 @@ namespace YandexTaxi.Infastructure.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("Orders");
-                });
 
-            modelBuilder.Entity("YandexTaxi.Domain.Entities.Order", b =>
-                {
-                    b.Navigation("Scrin");
+                    b.Navigation("Scrins");
                 });
 #pragma warning restore 612, 618
         }

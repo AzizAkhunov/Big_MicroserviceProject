@@ -15,15 +15,10 @@ namespace YandexTaxi.Api.Controllers
         {
             _service = service;
         }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetAllScrins()
-        {
-            return Ok(await _service.GetAllAsync());
-        }
         [HttpPost]
-        public async ValueTask<IActionResult> CreateCarAsync(int clientId,ScrinDTO scrin)
+        public async ValueTask<IActionResult> CreateScrinAsync(ScrinDTO scrin)
         {
-            if (await _service.CreateScrinAsync(clientId,scrin))
+            if (await _service.CreateScrinAsync(scrin))
             {
                 return Ok("Added");
             }
@@ -34,23 +29,15 @@ namespace YandexTaxi.Api.Controllers
         {
             return Ok(await _service.GetScrinById(id));
         }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetAllAsync()
+        {
+            return Ok(await _service.GetAllAsync());
+        }
         [HttpDelete]
         public async ValueTask<IActionResult> DeleteScrinById(int id)
         {
-            if (await _service.DeleteScrinAsync(id))
-            {
-                return Ok("Deleted!");
-            }
-            return BadRequest("Error!");
-        }
-        [HttpPut]
-        public async ValueTask<IActionResult> UpdateScrinAsync(int id, ScrinDTO car)
-        {
-            if (await _service.UpdateScrinAsync(id, car))
-            {
-                return Ok("updated");
-            }
-            return BadRequest("Error!");
+            return Ok(await _service.DeleteScrinAsync(id));
         }
     }
 }

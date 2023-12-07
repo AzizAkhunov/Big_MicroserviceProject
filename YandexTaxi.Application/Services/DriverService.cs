@@ -121,5 +121,9 @@ namespace YandexTaxi.Application.Services
             }
             return false;
         }
+        public async ValueTask<ICollection<Driver>> GetAllDriversScrins()
+        {
+            return await _context.Drivers.Include(x => x.Orders).ToListAsync();
+        }
     }
 }

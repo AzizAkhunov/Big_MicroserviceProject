@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YandexTaxi.Domain.Entities
 {
     [Table("Scrins")]
-    public class Scrin : BaseClassForModels
+    public class Scrin
     {
-        public string DriverName { get; set; }
-        public int CarId { get; set; }
-        public Car? Car { get; set; }
+        public int Id { get; set; }
+        public int DriverId { get; set; }
+        public Driver? Driver { get; set; }
         public int Longtitude { get; set; }
         public decimal Price { get; set; }
-        public bool Status { get; set; } = true; //active active emasligini aniqlash uchun 
     }
 }

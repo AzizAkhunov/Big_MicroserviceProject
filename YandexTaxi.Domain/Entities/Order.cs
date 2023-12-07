@@ -11,7 +11,6 @@ namespace YandexTaxi.Domain.Entities
         public int ClientId { get; set; }
         public Client? Client { get; set; }
         public string? Description { get; set; }
-        public decimal Price { get; set; }
         public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Econom;
     }
 }
