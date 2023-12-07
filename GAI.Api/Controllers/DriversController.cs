@@ -3,6 +3,7 @@ using GAI.Domain.DTOs;
 using GAI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 
 namespace GAI.Api.Controllers
@@ -12,18 +13,24 @@ namespace GAI.Api.Controllers
     public class DriversController : ControllerBase
     {
         private readonly IDriverService _service;
-        private readonly IDistributedCache _distributedCache;
+        private readonly IMemoryCache _memoryCache;
 
-        public DriversController(IDriverService service, IDistributedCache distributedCache)
+        public DriversController(IDriverService service, IMemoryCache memoryCache)
         {
             _service = service;
-            _distributedCache = distributedCache;
+            _memoryCache = memoryCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllDriversAsync()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Driver>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateDriverAsync(DriverDTO driver)
@@ -38,22 +45,7 @@ namespace GAI.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetDriverByIdAsync(int id)
         {
-            var fromCache = await _distributedCache.GetStringAsync($"Driver{id}");
-
-            if (fromCache is null)
-            {
-                var values = await _service.GetDriverById(id);
-
-                fromCache = JsonSerializer.Serialize(values);
-                await _distributedCache.SetStringAsync($"Driver{values.Id}", fromCache, new DistributedCacheEntryOptions()
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60)
-                });
-
-            }
-
-            var result = JsonSerializer.Deserialize<Driver>(fromCache);
-            return Ok(result);
+            return Ok(await _service.GetDriverById(id));
         }
         [HttpPut]
         public async ValueTask<IActionResult> UpdateDriverAsync(int id,DriverDTO driverDTO)

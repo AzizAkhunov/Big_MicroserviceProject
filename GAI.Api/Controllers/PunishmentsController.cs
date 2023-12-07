@@ -1,7 +1,9 @@
 ﻿using GAI.Application.Interfaces;
 using GAI.Domain.DTOs;
+using GAI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GAI.Api.Controllers
 {
@@ -10,17 +12,24 @@ namespace GAI.Api.Controllers
     public class PunishmentsController : ControllerBase
     {
         private readonly IPunishmentService _service;
-
-        public PunishmentsController(IPunishmentService service)
+        private readonly IMemoryCache _memoryCache;
+        public PunishmentsController(IPunishmentService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [Authorize]
         [HttpGet]
         public async ValueTask<IActionResult> GetAllPunishmentsAsync()
         {
-            var result = await _service.GetAllPunishmentsAsync();
-            return Ok(result);
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllPunishmentsAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<Punishment>);
         }
         [Authorize]
         [HttpPost]

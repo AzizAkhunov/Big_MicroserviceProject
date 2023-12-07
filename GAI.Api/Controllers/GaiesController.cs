@@ -1,6 +1,8 @@
 ﻿using GAI.Application.Interfaces;
 using GAI.Domain.DTOs;
+using GAI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GAI.Api.Controllers
 {
@@ -9,16 +11,23 @@ namespace GAI.Api.Controllers
     public class GaiesController : ControllerBase
     {
         private readonly IYPXService _service;
-
-        public GaiesController(IYPXService service)
+        private readonly IMemoryCache _memoryCache;
+        public GaiesController(IYPXService service, IMemoryCache memoryCache)
         {
             _service = service;
+            _memoryCache = memoryCache;
         }
         [HttpGet]
         public async ValueTask<IActionResult> GetAllYPXAsync()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var value = _memoryCache.Get("key");
+            if (value == null)
+            {
+                _memoryCache.Set(
+                    key: "key",
+                    value: await _service.GetAllAsync());
+            }
+            return Ok(_memoryCache.Get("key") as List<YPX>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateYPXAsync(YPXDTO ypxDTO)
