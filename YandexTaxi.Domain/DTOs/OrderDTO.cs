@@ -6,6 +6,7 @@ namespace YandexTaxi.Domain.DTOs
     {
         public int DriverId { get; set; }
         public int ClientId { get; set; }
+        public string? Description { get; set; }
         public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Econom;
     }
 }

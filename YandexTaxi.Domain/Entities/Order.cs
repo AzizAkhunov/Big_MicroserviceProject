@@ -10,6 +10,7 @@ namespace YandexTaxi.Domain.Entities
         public Driver? Driver { get; set; }
         public int ClientId { get; set; }
         public Client? Client { get; set; }
+        public string? Description { get; set; }
         public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Econom;
     }
 }

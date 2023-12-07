@@ -56,7 +56,7 @@ namespace YandexTaxi.Application.Services
             return result;
         }
 
-        public async ValueTask<Client> GetDriverById(int id)
+        public async ValueTask<Client> GetClientById(int id)
         {
             var result = await _context.Clients.FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
@@ -66,7 +66,7 @@ namespace YandexTaxi.Application.Services
             return new Client();
         }
 
-        public async ValueTask<bool> UpdateDriverAsync(int id, ClientDTO clientDTO)
+        public async ValueTask<bool> UpdateClientAsync(int id, ClientDTO clientDTO)
         {
             try
             {
@@ -87,14 +87,14 @@ namespace YandexTaxi.Application.Services
             }
             catch { return false; }
         }
-        public async ValueTask<bool> Leave_FeedBack(int driverId,string description)
+        public async ValueTask<bool> Leave_FeedBack(int orderId,string description)
         {
             try
             {
-                var driver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == driverId);
-                if (driver is not null)
+                var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+                if (order is not null)
                 {
-                    driver.Descriptions.Add(description);
+                    order.Description = description;
                     await _context.SaveChangesAsync();
                     return true;
                 }
