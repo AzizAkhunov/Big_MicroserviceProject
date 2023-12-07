@@ -102,5 +102,23 @@ namespace YandexTaxi.Application.Services
             }
             catch { return false; }
         }
+        public async ValueTask<Client> GetClientOrdersAsync(int id)
+        {
+            var result = await _context.Clients.Include(x => x.Orders).FirstOrDefaultAsync(x => x.Id == id);
+            if (result is not null)
+            {
+                return result;
+            }
+            return new Client();
+        }
+        public async ValueTask<Client> GetClientCardsAsync(int id)
+        {
+            var result = await _context.Clients.Include(x => x.Cards).FirstOrDefaultAsync(x => x.Id == id);
+            if (result is not null)
+            {
+                return result;
+            }
+            return new Client();
+        }
     }
 }

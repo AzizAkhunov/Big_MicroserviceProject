@@ -53,13 +53,13 @@ namespace YandexTaxi.Application.Services
 
         public async ValueTask<ICollection<Driver>> GetAllAsync()
         {
-            var result = await _context.Drivers.ToListAsync();
+            var result = await _context.Drivers.Include(x => x.Orders).ToListAsync();
             return result;
         }
 
         public async ValueTask<Driver> GetDriverById(int id)
         {
-            var result = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _context.Drivers.Include(x => x.Orders).FirstOrDefaultAsync(x => x.Id == id);
             if (result is not null)
             {
                 return result;
@@ -91,9 +91,10 @@ namespace YandexTaxi.Application.Services
         public async ValueTask<bool> AskForIncrease(int driverId, decimal approximate_amount)
         {
             var driver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == driverId);
+            int count = driver.Orders.Count();
             if (driver is not null)
             {
-                if (driver.Orders.Count > 5)
+                if (count > 5)
                 {
                     if (approximate_amount < 1500000)
                     {
@@ -105,7 +106,7 @@ namespace YandexTaxi.Application.Services
                         return false;
                     }
                 }
-                else if (driver.Orders.Count > 15)
+                else if (count > 15)
                 {
                     if (approximate_amount < 3500000)
                     {

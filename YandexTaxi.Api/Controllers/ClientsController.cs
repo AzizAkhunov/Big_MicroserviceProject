@@ -60,5 +60,15 @@ namespace YandexTaxi.Api.Controllers
             }
             return BadRequest("Error!");
         }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetClientOrders(int id)
+        {
+            return Ok(await _service.GetClientOrdersAsync(id));
+        }
+        [HttpGet]
+        public async ValueTask<IActionResult> GetClientCards(int id)
+        {
+            return Ok(await _service.GetClientCardsAsync(id));
+        }
     }
 }

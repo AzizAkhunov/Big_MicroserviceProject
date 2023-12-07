@@ -16,5 +16,7 @@ namespace YandexTaxi.Application.Interfaces
         ValueTask<bool> UpdateClientAsync(int id, ClientDTO clientDTO);
         ValueTask<Client> GetClientById(int id);
         ValueTask<bool> Leave_FeedBack(int driverId, string description);
+        ValueTask<Client> GetClientOrdersAsync(int id);
+        ValueTask<Client> GetClientCardsAsync(int id);
     }
 }

@@ -51,7 +51,7 @@ namespace YandexTaxi.Api.Controllers
             }
             return BadRequest("Error!");
         }
-        [HttpPatch]
+        [HttpPut]
         public async ValueTask<IActionResult> AskForIncrease(int driverId,decimal approximate_amount)
         {
             if (await _service.AskForIncrease(driverId, approximate_amount))
