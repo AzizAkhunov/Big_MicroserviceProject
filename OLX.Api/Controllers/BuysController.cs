@@ -21,20 +21,25 @@ namespace OLX.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllBuys()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Buys_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Buys_key",
                     value: await _service.GetAllBuyAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Buy>);
+            return Ok(_memoryCache.Get("Buys_key") as List<Buy>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateBuyAsync(BuysDTO buy)
         {
             if (await _service.CreateBuyAsync(buy))
             {
+                var value = _memoryCache.Get("Buys_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Buys_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -49,6 +54,11 @@ namespace OLX.Api.Controllers
         {
             if (await _service.DeleteBuyAsync(id))
             {
+                var value = _memoryCache.Get("Buys_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Buys_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -58,6 +68,11 @@ namespace OLX.Api.Controllers
         {
             if (await _service.UpdateBuyAsync(id, buy))
             {
+                var value = _memoryCache.Get("Buys_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Buys_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");

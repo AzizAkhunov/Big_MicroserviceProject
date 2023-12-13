@@ -20,20 +20,25 @@ namespace OLX.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllCards()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Cards_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Cards_key",
                     value: await _service.GetAllCardAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Card>);
+            return Ok(_memoryCache.Get("Cards_key") as List<Card>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateCardAsync(CardsDTO card)
         {
             if (await _service.CreateCardAsync(card))
             {
+                var value = _memoryCache.Get("Cards_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cards_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -48,6 +53,11 @@ namespace OLX.Api.Controllers
         {
             if (await _service.DeleteCardAsync(id))
             {
+                var value = _memoryCache.Get("Cards_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cards_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -57,6 +67,11 @@ namespace OLX.Api.Controllers
         {
             if (await _service.UpdateCardAsync(id,card))
             {
+                var value = _memoryCache.Get("Cards_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cards_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");

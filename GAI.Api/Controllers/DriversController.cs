@@ -38,6 +38,11 @@ namespace GAI.Api.Controllers
             bool result = await _service.CreateDriverAsync(driver);
             if (result is true)
             {
+                var value = _memoryCache.Get("key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -53,6 +58,11 @@ namespace GAI.Api.Controllers
             var result = await _service.UpdateDriverAsync(id, driverDTO);
             if (result is true)
             {
+                var value = _memoryCache.Get("key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("key");
+                }
                 return Ok("Updated");
             }
             return BadRequest("Error!");
@@ -63,6 +73,11 @@ namespace GAI.Api.Controllers
             var result = await _service.DeleteDriverAsync(id);
             if (result is true)
             {
+                var value = _memoryCache.Get("key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("key");
+                }
                 return Ok("Deleted");
             }
             return BadRequest("NotDeleted!");

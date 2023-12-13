@@ -21,20 +21,25 @@ namespace OLX.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllUsersAsync()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Users_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Users_key",
                     value: await _service.GetAllUserAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<User>);
+            return Ok(_memoryCache.Get("Users_key") as List<User>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateUserAsync(UsersDTO users)
         {
             if (await _service.CreateUserAsync(users))
             {
+                var value = _memoryCache.Get("Users_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Users_key");
+                }
                 return Ok("Added!");
             }
             return BadRequest("Error!");
@@ -49,6 +54,11 @@ namespace OLX.Api.Controllers
         {
             if (await _service.DeleteUserAsync(id))
             {
+                var value = _memoryCache.Get("Users_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Users_key");
+                }
                 return Ok("deleted");
             }
             return BadRequest("Error");
@@ -58,27 +68,14 @@ namespace OLX.Api.Controllers
         {
             if (await _service.UpdateUserAsync(id,user))
             {
+                var value = _memoryCache.Get("Users_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Users_key");
+                }
                 return Ok("Updated");
             }
             return BadRequest("Error!");
-        }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetUsersProducts(int userId)
-        {
-            var result = await _service.GetUsersProducts(userId);
-            return Ok(result.Products);
-        }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetUsersCards(int userId)
-        {
-            var result = await _service.GetUsersCards(userId);
-            return Ok(result.Cards);
-        }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetUsersBuys(int userId)
-        {
-            var result = await _service.GetUsersBuys(userId);
-            return Ok(result.Buys);
         }
     }
 }

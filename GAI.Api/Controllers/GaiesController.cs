@@ -20,14 +20,14 @@ namespace GAI.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllYPXAsync()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Gaies_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Gaies_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<YPX>);
+            return Ok(_memoryCache.Get("Gaies_key") as List<YPX>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateYPXAsync(YPXDTO ypxDTO)
@@ -35,6 +35,11 @@ namespace GAI.Api.Controllers
             bool result = await _service.CreateYPXAsync(ypxDTO);
             if (result is true)
             {
+                var value = _memoryCache.Get("Gaies_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Gaies_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -50,6 +55,11 @@ namespace GAI.Api.Controllers
             var result = await _service.UpdateYPXAsync(id, ypxDTO);
             if (result is true)
             {
+                var value = _memoryCache.Get("Gaies_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Gaies_key");
+                }
                 return Ok("Updated");
             }
             return BadRequest("Error!");
@@ -60,6 +70,11 @@ namespace GAI.Api.Controllers
             var result = await _service.DeleteYPXAsync(id);
             if (result is true)
             {
+                var value = _memoryCache.Get("Gaies_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Gaies_key");
+                }
                 return Ok("Deleted");
             }
             return BadRequest("NotDeleted!");

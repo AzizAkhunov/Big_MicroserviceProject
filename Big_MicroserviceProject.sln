@@ -35,11 +35,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API_YandexTaxi", "API_Yande
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexTaxi.Api", "YandexTaxi.Api\YandexTaxi.Api.csproj", "{8993EF85-CD1D-490B-821E-21462AAC532E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexTaxi.Domain", "YandexTaxi.Domain\YandexTaxi.Domain.csproj", "{4C45073B-6293-481D-8791-C234FCCC869D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexTaxi.Domain", "YandexTaxi.Domain\YandexTaxi.Domain.csproj", "{4C45073B-6293-481D-8791-C234FCCC869D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexTaxi.Infastructure", "YandexTaxi.Infastructure\YandexTaxi.Infastructure.csproj", "{13268ECE-65D2-428A-827C-0E2481E20F96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexTaxi.Infastructure", "YandexTaxi.Infastructure\YandexTaxi.Infastructure.csproj", "{13268ECE-65D2-428A-827C-0E2481E20F96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexTaxi.Application", "YandexTaxi.Application\YandexTaxi.Application.csproj", "{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexTaxi.Application", "YandexTaxi.Application\YandexTaxi.Application.csproj", "{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{DCD4E9ED-ADDC-446D-8709-30186FAABDFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD4E9ED-ADDC-446D-8709-30186FAABDFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD4E9ED-ADDC-446D-8709-30186FAABDFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD4E9ED-ADDC-446D-8709-30186FAABDFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD4E9ED-ADDC-446D-8709-30186FAABDFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{4C45073B-6293-481D-8791-C234FCCC869D} = {C66AF59F-FB98-4893-B505-550984B8D1D3}
 		{13268ECE-65D2-428A-827C-0E2481E20F96} = {C66AF59F-FB98-4893-B505-550984B8D1D3}
 		{97BBB4CE-EBD2-4A9D-A95E-229E3A63132B} = {C66AF59F-FB98-4893-B505-550984B8D1D3}
+		{DCD4E9ED-ADDC-446D-8709-30186FAABDFC} = {74337DA5-A4FA-44CB-8AA4-C7B5FA086701}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21324D44-4D2A-468B-AE73-C9E34B56E32B}
