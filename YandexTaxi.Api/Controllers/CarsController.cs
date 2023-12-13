@@ -20,20 +20,25 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllCars()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Cars_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Cars_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Car>);
+            return Ok(_memoryCache.Get("Cars_key") as List<Car>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateCarAsync(CarDTO car)
         {
             if (await _service.CreateCarAsync(car))
             {
+                var value = _memoryCache.Get("Cars_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cars_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -48,6 +53,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.DeleteCarAsync(id))
             {
+                var value = _memoryCache.Get("Cars_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cars_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -57,6 +67,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.UpdateCarAsync(id, car))
             {
+                var value = _memoryCache.Get("Cars_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Cars_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");

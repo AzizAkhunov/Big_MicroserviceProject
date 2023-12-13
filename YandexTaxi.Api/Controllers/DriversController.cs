@@ -20,20 +20,25 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllDrivers()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Drivers_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Drivers_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Driver>);
+            return Ok(_memoryCache.Get("Drivers_key") as List<Driver>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateDriverAsync(DriverDTO driver)
         {
             if (await _service.CreateDriverAsync(driver))
             {
+                var value = _memoryCache.Get("Drivers_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Drivers_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -48,6 +53,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.DeleteDriverAsync(id))
             {
+                var value = _memoryCache.Get("Drivers_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Drivers_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -57,6 +67,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.UpdateDriverAsync(id, driver))
             {
+                var value = _memoryCache.Get("Drivers_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Drivers_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");
@@ -66,6 +81,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.AskForIncrease(driverId, approximate_amount))
             {
+                var value = _memoryCache.Get("Drivers_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Drivers_key");
+                }
                 return Ok("Sizning Oiligingiz suralgan naxrga kutarildi !");
             }
             return BadRequest("Sizning Oilingizni kutara olmaymiz siz yetarli vaqt ishlamadingiz Yoki Kotta narx talab qolipsiz");

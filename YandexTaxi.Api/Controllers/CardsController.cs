@@ -21,20 +21,25 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllCards()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Card_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Card_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Card>);
+            return Ok(_memoryCache.Get("Card_key") as List<Card>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateCardAsync(CardDTO card)
         {
             if (await _service.CreateCardAsync(card))
             {
+                var value = _memoryCache.Get("Card_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Card_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -49,6 +54,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.DeleteCardAsync(id))
             {
+                var value = _memoryCache.Get("Card_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Card_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -58,6 +68,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.UpdateCardAsync(id, card))
             {
+                var value = _memoryCache.Get("Card_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Card_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");
@@ -73,6 +88,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.Replenishment(cardNumber, amount))
             {
+                var value = _memoryCache.Get("Card_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Card_key");
+                }
                 return Ok("Balansingiz tuldirildi");
             }
             return BadRequest("Error!");

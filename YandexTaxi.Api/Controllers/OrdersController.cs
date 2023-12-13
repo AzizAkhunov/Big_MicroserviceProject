@@ -20,20 +20,25 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllOrders()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Orders_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Orders_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Order>);
+            return Ok(_memoryCache.Get("Orders_key") as List<Order>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateOrderAsync(OrderDTO order)
         {
             if (await _service.CreateOrderAsync(order))
             {
+                var value = _memoryCache.Get("Orders_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Orders_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -48,6 +53,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.DeleteOrderAsync(id))
             {
+                var value = _memoryCache.Get("Orders_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Orders_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -57,6 +67,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.UpdateOrderAsync(id, order))
             {
+                var value = _memoryCache.Get("Orders_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Orders_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");

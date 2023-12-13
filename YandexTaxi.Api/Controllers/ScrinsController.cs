@@ -23,6 +23,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.CreateScrinAsync(scrin))
             {
+                var value = _memoryCache.Get("Scrins_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Scrins_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -35,19 +40,29 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllAsync()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Scrins_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Scrins_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Scrin>);
+            return Ok(_memoryCache.Get("Scrins_key") as List<Scrin>);
         }
         [HttpDelete]
         public async ValueTask<IActionResult> DeleteScrinById(int id)
         {
-            return Ok(await _service.DeleteScrinAsync(id));
+            var result = await _service.DeleteScrinAsync(id);
+            if (result != "Error!")
+            {
+                var value = _memoryCache.Get("Scrins_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Scrins_key");
+                }
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

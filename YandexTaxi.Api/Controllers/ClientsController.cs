@@ -20,20 +20,25 @@ namespace YandexTaxi.Api.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetAllClients()
         {
-            var value = _memoryCache.Get("key");
+            var value = _memoryCache.Get("Clients_key");
             if (value == null)
             {
                 _memoryCache.Set(
-                    key: "key",
+                    key: "Clients_key",
                     value: await _service.GetAllAsync());
             }
-            return Ok(_memoryCache.Get("key") as List<Client>);
+            return Ok(_memoryCache.Get("Clients_key") as List<Client>);
         }
         [HttpPost]
         public async ValueTask<IActionResult> CreateClientAsync(ClientDTO client)
         {
             if (await _service.CreateClientAsync(client))
             {
+                var value = _memoryCache.Get("Clients_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Clients_key");
+                }
                 return Ok("Added");
             }
             return BadRequest("Error!");
@@ -48,6 +53,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.DeleteClientAsync(id))
             {
+                var value = _memoryCache.Get("Clients_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Clients_key");
+                }
                 return Ok("Deleted!");
             }
             return BadRequest("Error!");
@@ -57,6 +67,11 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.UpdateClientAsync(id, client))
             {
+                var value = _memoryCache.Get("Clients_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Clients_key");
+                }
                 return Ok("updated");
             }
             return BadRequest("Error!");
@@ -66,19 +81,14 @@ namespace YandexTaxi.Api.Controllers
         {
             if (await _service.Leave_FeedBack(driverId, description))
             {
+                var value = _memoryCache.Get("Clients_key");
+                if (value is not null)
+                {
+                    _memoryCache.Remove("Clients_key");
+                }
                 return Ok("FeedBack qabul qilindi!");
             }
             return BadRequest("Error!");
-        }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetClientOrders(int id)
-        {
-            return Ok(await _service.GetClientOrdersAsync(id));
-        }
-        [HttpGet]
-        public async ValueTask<IActionResult> GetClientCards(int id)
-        {
-            return Ok(await _service.GetClientCardsAsync(id));
         }
     }
 }
